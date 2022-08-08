@@ -1,19 +1,44 @@
-import React from 'react';
+//import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import { Avatar, Button, Paper, TextField, Typography, Link } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LockIcon from '@mui/icons-material/Lock';
-import {useState} from "react";
+
+import { useFormik } from 'formik';
+import * as yup from "yup";
+import Box from '@mui/material/Box';
+
+
+const formValidationSchema = yup.object({
+  userName: yup
+      .string("Enter your user name")
+      .required("Your user name is required"),
+  password: yup
+      .string("Enter your password")
+      .required("Password required")
+})
+
+
 
 const Login=()=> {
-    
 
-    const [value, setValue] = useState("");
-    const handleChange = e => {
-        console.log('Typed => ${e.target.value}')
-        setValue(e.target.value);
+
+  const formik = useFormik({
+    initialValues: {
+      userName:"",
+      password: ""
+    },
+    validationSchema: formValidationSchema,
+    onSubmit:(values) => {
+      axios.post('http://localhost:8080/api/v1/login', values)
+      .then(response => {
+        console.log(response);
+      })
     }
+  })
+    
 
     const paperStyle={
         padding: "20px",
@@ -37,29 +62,49 @@ const Login=()=> {
                 <Avatar style={avatarStyle}><LockIcon></LockIcon></Avatar>
                 <h4>Sign In</h4>
                 </Grid>
+               
+
+          <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+
                 <TextField
                     label='Username'
                     placeholder='Enter Username'
                     style={textfield}
                     fullWidth
                     required
-                    value ={value}
-                    onChange = {handleChange}>
+                    value={formik.values.userName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.userName && Boolean(formik.errors.userName)}
+                    helperText={formik.touched.userName && formik.errors.userName}
+                    id = "userName"
+                    name = "userName"
+                    >
                 </TextField>
+
+
                 <TextField
                     label='Password'
                     placeholder='Enter Password'
                     type='password'
                     style={textfield}
                     fullWidth
-                    required>
+                    required
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                    id = "password"
+                    name = "password"
+                    >
                 </TextField>
+
+
                 <FormControlLabel
                     control={
                         <Checkbox
                             name='Checked'
                             color="primary"
-                    />}
+                        />}
                     label='Remember me'
                 />
                 <Button
@@ -83,6 +128,7 @@ const Login=()=> {
                         Don't have an account? Sign Up
                     </Link>
                 </Typography>
+              </Box>
             </Paper>
         </Grid>
     )
