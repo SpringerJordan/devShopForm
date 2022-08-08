@@ -1,13 +1,8 @@
 import React from 'react';
-// import './App.css';
-// import DataFetching from './components/DataFetching';
 import Login from './components/Login.js';
 import './App.css'
-// import ComponentC from './components/ComponentC.js'
-// import SignInSide from './components/Login.js';
+import SignUp from './components/SignUp'
 
-// export const UserContext = React.createContext()
-// export const ChannelContext = React.createContext()
 
 
 function App() {
@@ -15,17 +10,9 @@ function App() {
     <div className="App">
 
 
-      {/* <UserContext.Provider value={'Vishwas'}>
-        <ChannelContext.Provider value={'Codevolution'}>
-          <ComponentC />
-        </ChannelContext.Provider>
-      </UserContext.Provider>
+      {/* <Login></Login> */}
+      <SignUp></SignUp>
 
-      <ComponentC/> */}
-
-      <Login></Login>
-
-      {/* <DataFetching></DataFetching> */}
     </div>
   );
 }
