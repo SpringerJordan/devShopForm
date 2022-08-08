@@ -4,9 +4,17 @@ import { Avatar, Button, Paper, TextField, Typography, Link } from '@mui/materia
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LockIcon from '@mui/icons-material/Lock';
+import {useState} from "react";
 
 const Login=()=> {
     
+
+    const [value, setValue] = useState("");
+    const handleChange = e => {
+        console.log('Typed => ${e.target.value}')
+        setValue(e.target.value);
+    }
+
     const paperStyle={
         padding: "20px",
         height: "70vh",
@@ -34,7 +42,9 @@ const Login=()=> {
                     placeholder='Enter Username'
                     style={textfield}
                     fullWidth
-                    required>
+                    required
+                    value ={value}
+                    onChange = {handleChange}>
                 </TextField>
                 <TextField
                     label='Password'
