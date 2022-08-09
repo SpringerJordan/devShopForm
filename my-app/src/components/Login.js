@@ -6,6 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LockIcon from '@mui/icons-material/Lock';
 
+
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import Box from '@mui/material/Box';
@@ -27,8 +28,12 @@ const Login=()=> {
 
   const formik = useFormik({
     initialValues: {
+      firstName:"",
+      lastName:"",
+      emailAddress:"",
       userName:"",
       password: ""
+
     },
     validationSchema: formValidationSchema,
     onSubmit:(values) => {
@@ -60,7 +65,7 @@ const Login=()=> {
             <Paper elevation={10} style={paperStyle}>
                 <Grid align="center">
                 <Avatar style={avatarStyle}><LockIcon></LockIcon></Avatar>
-                <h4>Sign In</h4>
+                <h4>Login</h4>
                 </Grid>
                
 
@@ -124,8 +129,14 @@ const Login=()=> {
                 </Typography>
                 <Typography
                     style={textfield}>
-                    <Link href="#">
+                    <Link href="/signUp">
                         Don't have an account? Sign Up
+                    </Link>
+                </Typography>
+                <Typography
+                    style={textfield}>
+                    <Link href="/">
+                        Home
                     </Link>
                 </Typography>
               </Box>
